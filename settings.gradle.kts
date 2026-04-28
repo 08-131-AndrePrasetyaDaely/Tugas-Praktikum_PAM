@@ -22,5 +22,11 @@ dependencyResolutionManagement {
     }
 }
 
+<<<<<<< HEAD
 rootProject.name = "MyFisrtKMPApp"
 include(":app")
+=======
+rootProject.name = "News Feed Simulator"
+include(":app")
+ 
+>>>>>>> 1067315 (Update week-2)

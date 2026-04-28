@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+<<<<<<< HEAD
     <style name="Theme.MyFisrtKMPApp" parent="android:Theme.Material.Light.NoActionBar" />
+=======
+    <style name="Theme.NewsFeedSimulator" parent="android:Theme.Material.Light.NoActionBar" />
+>>>>>>> 1067315 (Update week-2)
 </resources>
