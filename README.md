@@ -1,3 +1,5 @@
+<img width="394" height="869" alt="Screenshot 2026-04-29 005524" src="https://github.com/user-attachments/assets/0b054759-b0ff-4397-abbd-d6e16ef4eced" />
+
 # 📱 Tugas Praktikum PAM Week 3
 
 Aplikasi profil diri sederhana yang dibangun menggunakan **Jetpack Compose** sebagai bagian dari tugas praktikum Pengembangan Aplikasi Mobile.
@@ -73,6 +75,7 @@ Membangun aplikasi Android dengan fitur:
 ## 📸 Screenshot
 
 
+<img width="429" height="945" alt="image" src="https://github.com/user-attachments/assets/f4d1671d-cf3f-44b2-af24-ec57def497e8" />
 
 
 ---
