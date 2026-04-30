@@ -29,7 +29,7 @@ Membangun aplikasi Android dengan fitur:
 - **Animation**: `AnimatedVisibility` (Fade In/Out)
 
 ## 📸 Screenshot
-![Profile Screenshot](screenshot.png)
+![Profile Screenshot](Screenshot.png)
 
 ## 👤 Identitas
 - **Nama**: Andre Prasetya Daely
