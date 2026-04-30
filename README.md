@@ -1,38 +1,40 @@
-#  Tugas Praktikum PAM Week 3
+# My Profile App - Tugas Praktikum PAM Week 4
 
-Aplikasi profil diri sederhana yang dibangun menggunakan **Jetpack Compose** sebagai bagian dari tugas praktikum Pengembangan Aplikasi Mobile.
+Aplikasi profil diri yang dikembangkan dengan pola arsitektur **MVVM** dan fitur kustomisasi UI.
 
-## 📝 Deskripsi Tugas
-Membangun aplikasi Android dengan fitur:
-1. **Halaman Profil**:
-   - Header dengan foto profil (Circular) dan Nama.
-   - Bio/Deskripsi singkat.
-   - Informasi kontak: Email, Phone, dan Location.
-2. **Minimal 3 Reusable Composable Functions**:
-   - `ProfileHeader`
-   - `ProfileCard`
-   - `InfoItem`
-3. **Penggunaan Komponen Dasar**: Column, Row, Box, Card, Text, Button, Image, dan Icon.
-4. **Bonus**: Implementasi animasi menggunakan `AnimatedVisibility`.
+## 📝 Deskripsi Tugas (Minggu 4)
+Mengembangkan Profile App dari minggu lalu dengan fitur:
+1. **Implementasi MVVM Pattern**:
+   - Menggunakan `ProfileViewModel` dengan `StateFlow` untuk manajemen state.
+   - Data state didefinisikan dalam data class `ProfileUiState`.
+2. **Fitur Edit Profile**:
+   - Form untuk mengedit nama dan bio secara langsung.
+   - Implementasi **State Hoisting** untuk komponen `TextField`.
+   - Tombol "Save Changes" untuk memperbarui data di ViewModel.
+3. **Fitur Dark Mode Toggle**:
+   - Switch untuk berpindah antara Dark/Light mode.
+   - State tema disimpan dan dikelola di dalam ViewModel.
 
 ## 🚀 Fitur & Implementasi
-- **ProfileHeader**: Menampilkan foto profil melingkar menggunakan `clip(CircleShape)` dan `border`.
-- **ProfileCard**: Kartu informasi yang muncul/hilang dengan animasi fade.
-- **InfoItem**: Komponen baris yang dapat digunakan kembali untuk setiap entri data kontak.
-- **Interaktivitas**: Tombol "Show Details" untuk memicu animasi transisi.
+- **MVVM Architecture**: Pemisahan logika bisnis (ViewModel) dari UI (Compose).
+- **Reactive UI**: UI otomatis diperbarui ketika `StateFlow` di ViewModel berubah.
+- **Dynamic Theme**: Dukungan penuh untuk tema Gelap/Terang yang dikontrol oleh pengguna.
+- **State Hoisting**: Input pengguna dikelola secara terpusat untuk menjaga konsistensi data.
 
-## 🛠️ Tech Stack & Komponen
-- **Jetpack Compose**
-- **Material Design 3**
-- **Layouts**: `Column`, `Row`, `Box`
-- **UI Elements**: `Text`, `Button`, `Image`, `Icon`, `Card`
-- **Animation**: `AnimatedVisibility` (Fade In/Out)
+## 🛠️ Struktur Folder
+- `data/`: Berisi `ProfileUiState.kt`.
+- `viewmodel/`: Berisi `ProfileViewModel.kt`.
+- `ui/`: Berisi komponen antarmuka pengguna.
+- `MainActivity.kt`: Entry point aplikasi dan root composable.
 
-## 📸 Screenshot
-![Profile Screenshot](Screenshot.png)
+## 📸 Screenshots
+*(Silakan tambahkan screenshot berikut)*
+1. **Profile View** (Halaman Utama)
+2. **Edit Form** (Tampilan saat mengedit)
+3. **Dark Mode** (Tampilan tema gelap)
 
 ## 👤 Identitas
 - **Nama**: Andre Prasetya Daely
 - **NIM**: 123140131
 - **Prodi**: Teknik Informatika ITERA
-- **Branch**: `week-3`
+- **Branch**: `week-4`

@@ -10,8 +10,11 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Phone
@@ -28,16 +31,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myprofileapp.ui.theme.MyProfileAppTheme
+import com.example.myprofileapp.viewmodel.ProfileViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MyProfileAppTheme {
+            val viewModel: ProfileViewModel = viewModel()
+            val uiState by viewModel.uiState.collectAsState()
+
+            MyProfileAppTheme(darkTheme = uiState.isDarkMode) {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    ProfileScreen(modifier = Modifier.padding(innerPadding))
+                    ProfileScreen(
+                        modifier = Modifier.padding(innerPadding),
+                        viewModel = viewModel
+                    )
                 }
             }
         }
@@ -45,41 +56,122 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun ProfileScreen(modifier: Modifier = Modifier) {
-    var isVisible by remember { mutableStateOf(false) }
+fun ProfileScreen(
+    modifier: Modifier = Modifier,
+    viewModel: ProfileViewModel
+) {
+    val uiState by viewModel.uiState.collectAsState()
+    var isEditMode by remember { mutableStateOf(false) }
+    var isDetailsVisible by remember { mutableStateOf(false) }
 
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(16.dp)
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // 1. Profile Header (Reusable Composable)
-        ProfileHeader(
-            name = "Andre Prasetya Daely",
-            bio = "Mahasiswa Teknik Informatika ITERA"
-        )
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        // Button to toggle visibility (Bonus: Animation)
-        Button(onClick = { isVisible = !isVisible }) {
-            Text(if (isVisible) "Hide Details" else "Show Details")
+        // Dark Mode Toggle
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.End,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text("Dark Mode", style = MaterialTheme.typography.bodyMedium)
+            Spacer(modifier = Modifier.width(8.dp))
+            Switch(
+                checked = uiState.isDarkMode,
+                onCheckedChange = { viewModel.toggleDarkMode(it) }
+            )
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
-        // 2. Profile Card (Reusable Composable) with Animation
-        AnimatedVisibility(
-            visible = isVisible,
-            enter = fadeIn(),
-            exit = fadeOut()
-        ) {
-            ProfileCard(
-                email = "andre.123140131@student.itera.ac.id",
-                phone = "081369909687",
-                location = "Lampung, Indonesia"
+        if (isEditMode) {
+            EditProfileForm(
+                name = uiState.name,
+                bio = uiState.bio,
+                onNameChange = { viewModel.updateName(it) },
+                onBioChange = { viewModel.updateBio(it) },
+                onSave = { isEditMode = false }
             )
+        } else {
+            ProfileHeader(
+                name = uiState.name,
+                bio = uiState.bio
+            )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Button(onClick = { isDetailsVisible = !isDetailsVisible }) {
+                    Text(if (isDetailsVisible) "Hide Details" else "Show Details")
+                }
+                
+                OutlinedButton(onClick = { isEditMode = true }) {
+                    Icon(Icons.Default.Edit, contentDescription = null)
+                    Spacer(Modifier.width(8.dp))
+                    Text("Edit Profile")
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            AnimatedVisibility(
+                visible = isDetailsVisible,
+                enter = fadeIn(),
+                exit = fadeOut()
+            ) {
+                ProfileCard(
+                    email = uiState.email,
+                    phone = uiState.phone,
+                    location = uiState.location
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun EditProfileForm(
+    name: String,
+    bio: String,
+    onNameChange: (String) -> Unit,
+    onBioChange: (String) -> Unit,
+    onSave: () -> Unit
+) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Text("Edit Profile", style = MaterialTheme.typography.headlineSmall)
+            
+            OutlinedTextField(
+                value = name,
+                onValueChange = onNameChange,
+                label = { Text("Name") },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true
+            )
+
+            OutlinedTextField(
+                value = bio,
+                onValueChange = onBioChange,
+                label = { Text("Bio") },
+                modifier = Modifier.fillMaxWidth(),
+                minLines = 3
+            )
+
+            Button(
+                onClick = onSave,
+                modifier = Modifier.align(Alignment.End)
+            ) {
+                Text("Save Changes")
+            }
         }
     }
 }
@@ -87,14 +179,12 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
 @Composable
 fun ProfileHeader(name: String, bio: String) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        // Circular Profile Photo
         Box(
             modifier = Modifier
                 .size(120.dp)
                 .clip(CircleShape)
                 .border(2.dp, MaterialTheme.colorScheme.primary, CircleShape)
         ) {
-            // Using the profile image from drawable resources
             Image(
                 painter = painterResource(id = R.drawable.profile_image),
                 contentDescription = "Profile Picture",
@@ -140,7 +230,6 @@ fun ProfileCard(email: String, phone: String, location: String) {
                 modifier = Modifier.padding(bottom = 8.dp)
             )
             
-            // 3. Info Item (Reusable Composable)
             InfoItem(icon = Icons.Default.Email, label = "Email", value = email)
             InfoItem(icon = Icons.Default.Phone, label = "Phone", value = phone)
             InfoItem(icon = Icons.Default.LocationOn, label = "Location", value = location)
@@ -172,7 +261,7 @@ fun InfoItem(icon: ImageVector, label: String, value: String) {
 @Composable
 fun ProfilePreview() {
     MyProfileAppTheme {
-        ProfileScreen()
+        // Mock ViewModel for preview could be handled differently, 
+        // but for a simple preview we can use a basic state.
     }
-
 }
