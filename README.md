@@ -22,7 +22,9 @@ A simple Android application built with Jetpack Compose to display a user profil
 
 ## Screenshot
 ![Profile Screenshot](screenshot.png)
-*(Note: Please replace this with the actual screenshot of the running app)*
+
+## Profile Picture
+The app uses a profile picture located at `app/src/main/res/drawable/profile_image.jpg`.
 
 ## How to Build
 1. Open the project in Android Studio.

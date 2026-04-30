@@ -56,8 +56,8 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
     ) {
         // 1. Profile Header (Reusable Composable)
         ProfileHeader(
-            name = "John Doe",
-            bio = "Android Developer | UI/UX Enthusiast"
+            name = "Andre Prasetya Daely",
+            bio = "Mahasiswa Teknik Informatika ITERA"
         )
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -76,9 +76,9 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
             exit = fadeOut()
         ) {
             ProfileCard(
-                email = "johndoe@example.com",
-                phone = "+62 812 3456 7890",
-                location = "Jakarta, Indonesia"
+                email = "andre.123140131@student.itera.ac.id",
+                phone = "081369909687",
+                location = "Lampung, Indonesia"
             )
         }
     }
@@ -94,9 +94,9 @@ fun ProfileHeader(name: String, bio: String) {
                 .clip(CircleShape)
                 .border(2.dp, MaterialTheme.colorScheme.primary, CircleShape)
         ) {
-            // Using a placeholder image from resources
+            // Using the profile image from drawable resources
             Image(
-                painter = painterResource(id = android.R.drawable.ic_menu_gallery),
+                painter = painterResource(id = R.drawable.profile_image),
                 contentDescription = "Profile Picture",
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
@@ -174,4 +174,5 @@ fun ProfilePreview() {
     MyProfileAppTheme {
         ProfileScreen()
     }
+
 }
