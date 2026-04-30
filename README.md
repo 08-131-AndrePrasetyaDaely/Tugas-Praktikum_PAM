@@ -74,7 +74,7 @@ Membangun aplikasi Android dengan fitur:
 ## 📸 Screenshot
 
 
-<img width="394" height="869" alt="Screenshot 2026-04-29 005524" src="https://github.com/user-attachments/assets/0b054759-b0ff-4397-abbd-d6e16ef4eced" />
+<img width="430" height="952" alt="Screenshot 2026-05-01 032440" src="https://github.com/user-attachments/assets/414df693-2dc4-44e3-850e-9405a5687c88" />
 
 
 
