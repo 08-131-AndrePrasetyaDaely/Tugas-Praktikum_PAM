@@ -1,32 +1,38 @@
-# My Profile App
+#  Tugas Praktikum PAM Week 3
 
-A simple Android application built with Jetpack Compose to display a user profile.
+Aplikasi profil diri sederhana yang dibangun menggunakan **Jetpack Compose** sebagai bagian dari tugas praktikum Pengembangan Aplikasi Mobile.
 
-## Features
-- **Profile Header**: Displays a circular profile picture and the user's name.
-- **Bio Section**: A short description of the user.
-- **Contact Information**: A card containing Email, Phone, and Location.
-- **Interactive**: A "Show Details" button that toggles the visibility of the contact information with a fade animation.
+## 📝 Deskripsi Tugas
+Membangun aplikasi Android dengan fitur:
+1. **Halaman Profil**:
+   - Header dengan foto profil (Circular) dan Nama.
+   - Bio/Deskripsi singkat.
+   - Informasi kontak: Email, Phone, dan Location.
+2. **Minimal 3 Reusable Composable Functions**:
+   - `ProfileHeader`
+   - `ProfileCard`
+   - `InfoItem`
+3. **Penggunaan Komponen Dasar**: Column, Row, Box, Card, Text, Button, Image, dan Icon.
+4. **Bonus**: Implementasi animasi menggunakan `AnimatedVisibility`.
 
-## Components Used
-- `Column`, `Row`, `Box` (Layouts)
-- `Card` (Material Design 3)
-- `Text`, `Button`, `Image`, `Icon` (UI Elements)
-- `Modifier` (Styling: padding, clip, border, fillMaxSize, etc.)
-- `AnimatedVisibility` (Animation bonus)
+## 🚀 Fitur & Implementasi
+- **ProfileHeader**: Menampilkan foto profil melingkar menggunakan `clip(CircleShape)` dan `border`.
+- **ProfileCard**: Kartu informasi yang muncul/hilang dengan animasi fade.
+- **InfoItem**: Komponen baris yang dapat digunakan kembali untuk setiap entri data kontak.
+- **Interaktivitas**: Tombol "Show Details" untuk memicu animasi transisi.
 
-## Reusable Composables
-1. `ProfileHeader`: Renders the top section of the profile.
-2. `ProfileCard`: Renders the detailed information card.
-3. `InfoItem`: A reusable row for displaying a specific piece of information with an icon.
+## 🛠️ Tech Stack & Komponen
+- **Jetpack Compose**
+- **Material Design 3**
+- **Layouts**: `Column`, `Row`, `Box`
+- **UI Elements**: `Text`, `Button`, `Image`, `Icon`, `Card`
+- **Animation**: `AnimatedVisibility` (Fade In/Out)
 
-## Screenshot
+## 📸 Screenshot
 ![Profile Screenshot](screenshot.png)
 
-## Profile Picture
-The app uses a profile picture located at `app/src/main/res/drawable/profile_image.jpg`.
-
-## How to Build
-1. Open the project in Android Studio.
-2. Sync Gradle.
-3. Run the `app` module on an emulator or physical device.
+## 👤 Identitas
+- **Nama**: Andre Prasetya Daely
+- **NIM**: 123140131
+- **Prodi**: Teknik Informatika ITERA
+- **Branch**: `week-3`
