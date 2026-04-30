@@ -72,8 +72,8 @@ Membangun aplikasi Android dengan fitur:
 
 ## 📸 Screenshot
 
-![Profile Screenshot](<img width="429" height="946" alt="image" src="https://github.com/user-attachments/assets/6cc2b655-d954-444e-a1c1-709bf0341727" />
-)
+
+
 
 ---
 
