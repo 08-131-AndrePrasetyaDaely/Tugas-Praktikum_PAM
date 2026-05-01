@@ -28,12 +28,11 @@ Mengembangkan Profile App dari minggu lalu dengan fitur:
 - `MainActivity.kt`: Entry point aplikasi dan root composable.
 
 ## 📸 Screenshots
-1. **Profile View**
-![Profile View](profile_view.png)
-2. **Edit Form**
-![Edit Form](edit_form.png)
-3. **Dark Mode**
-![Dark Mode](dark_mode.png)
+<img width="446" height="954" alt="profile" src="https://github.com/user-attachments/assets/ff98f0e2-c706-49f9-b59c-ac42ee9712a9" />
+<img width="440" height="948" alt="darkmode" src="https://github.com/user-attachments/assets/ad010749-ca4a-420a-b726-1ec562c7ea99" />
+<img width="433" height="941" alt="editprofile" src="https://github.com/user-attachments/assets/1ca553d7-e042-43cf-840b-4cf02714e5ca" />
+
+
 
 ## 👤 Identitas
 - **Nama**: Andre Prasetya Daely
