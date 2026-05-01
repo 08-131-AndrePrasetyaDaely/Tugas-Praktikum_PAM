@@ -1,42 +1,39 @@
-# My Profile App - Tugas Praktikum PAM Week 4
+# My Notes App - Tugas Praktikum PAM Week 5
 
-Aplikasi profil diri yang dikembangkan dengan pola arsitektur **MVVM** dan fitur kustomisasi UI.
+Aplikasi manajemen catatan sederhana yang dikembangkan dengan **Jetpack Compose Navigation** dan arsitektur **MVVM**.
 
-## 📝 Deskripsi Tugas (Minggu 4)
-Mengembangkan Profile App dari minggu lalu dengan fitur:
-1. **Implementasi MVVM Pattern**:
-   - Menggunakan `ProfileViewModel` dengan `StateFlow` untuk manajemen state.
-   - Data state didefinisikan dalam data class `ProfileUiState`.
-2. **Fitur Edit Profile**:
-   - Form untuk mengedit nama dan bio secara langsung.
-   - Implementasi **State Hoisting** untuk komponen `TextField`.
-   - Tombol "Save Changes" untuk memperbarui data di ViewModel.
-3. **Fitur Dark Mode Toggle**:
-   - Switch untuk berpindah antara Dark/Light mode.
-   - State tema disimpan dan dikelola di dalam ViewModel.
+## 📝 Deskripsi Tugas (Minggu 5)
+Mengembangkan fitur navigasi pada aplikasi:
+1. **Bottom Navigation**: 3 tab utama (Notes, Favorites, Profile).
+2. **Note List to Detail**: Navigasi dari daftar catatan ke detail catatan dengan mengirimkan `noteId`.
+3. **Floating Action Button**: Menambahkan catatan baru melalui navigasi ke `AddNoteScreen`.
+4. **Edit Note**: Fitur mengedit catatan dengan argumen `noteId`.
+5. **Back Navigation**: Implementasi tombol kembali yang proper di semua layar.
+6. **Bonus**: Implementasi **Navigation Drawer** untuk akses cepat ke menu utama.
 
 ## 🚀 Fitur & Implementasi
-- **MVVM Architecture**: Pemisahan logika bisnis (ViewModel) dari UI (Compose).
-- **Reactive UI**: UI otomatis diperbarui ketika `StateFlow` di ViewModel berubah.
-- **Dynamic Theme**: Dukungan penuh untuk tema Gelap/Terang yang dikontrol oleh pengguna.
-- **State Hoisting**: Input pengguna dikelola secara terpusat untuk menjaga konsistensi data.
+- **Navigation Graph**: Menggunakan `NavHost` untuk mengelola rute antar layar.
+- **Passing Arguments**: Mengirimkan data antar layar secara aman menggunakan argumen rute.
+- **Scaffold Integration**: Integrasi Top Bar, Bottom Bar, dan FAB dalam satu struktur halaman.
+- **State Management**: Data tetap sinkron antara list, detail, dan edit menggunakan ViewModel bersama.
 
 ## 🛠️ Struktur Folder
-- `data/`: Berisi `ProfileUiState.kt`.
-- `viewmodel/`: Berisi `ProfileViewModel.kt`.
-- `ui/`: Berisi komponen antarmuka pengguna.
-- `MainActivity.kt`: Entry point aplikasi dan root composable.
+- `navigation/`: Berisi `Screen.kt` (rute) dan `MainNavigation.kt` (graf navigasi).
+- `screens/`: Berisi layar fungsional (`NotesScreen`, `NoteDetailScreen`, dll).
+- `viewmodel/`: Berisi `NotesViewModel` dan `ProfileViewModel`.
+- `model/`: Berisi data model `Note.kt`.
 
 ## 📸 Screenshots
-1. **Profile View**
-![Profile View](profile_view.png)
-2. **Edit Form**
-![Edit Form](edit_form.png)
-3. **Dark Mode**
-![Dark Mode](dark_mode.png)
+*(Silakan tambahkan screenshot layar berikut)*
+1. **Notes List** (Bottom Nav: Notes)
+2. **Favorites List** (Bottom Nav: Favorites)
+3. **Note Detail** (View mode)
+4. **Add/Edit Note Form**
+5. **Navigation Drawer**
+6. **Profile View** (dari minggu sebelumnya)
 
 ## 👤 Identitas
 - **Nama**: Andre Prasetya Daely
 - **NIM**: 123140131
 - **Prodi**: Teknik Informatika ITERA
-- **Branch**: `week-4`
+- **Branch**: `week-5`
