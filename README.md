@@ -24,18 +24,16 @@ Mengembangkan fitur navigasi pada aplikasi:
 - `model/`: Berisi data model `Note.kt`.
 
 ## 📸 Screenshots
-1. **Notes List**
-![Notes List](Bukti/NoteList.png)
-2. **Favorites List**
-![Favorites List](Bukti/Favorite.png)
-3. **Note Detail**
-![Note Detail](Bukti/NoteDetail.png)
-4. **Add Note Form**
-![Add Note](Bukti/addnote.png)
-5. **Edit Note Form**
-![Edit Note](Bukti/Editnote.png)
-6. **Navigation Drawer**
-![Navigation Drawer](Bukti/NavigationDrawer.png)
+<p align="center">
+  <img src="Bukti/NoteList.png" width="250" alt="Notes List">
+  <img src="Bukti/Favorite.png" width="250" alt="Favorites List">
+  <img src="Bukti/NoteDetail.png" width="250" alt="Note Detail">
+</p>
+<p align="center">
+  <img src="Bukti/addnote.png" width="250" alt="Add Note">
+  <img src="Bukti/Editnote.png" width="250" alt="Edit Note">
+  <img src="Bukti/NavigationDrawer.png" width="250" alt="Navigation Drawer">
+</p>
 
 ## 👤 Identitas
 - **Nama**: Andre Prasetya Daely
