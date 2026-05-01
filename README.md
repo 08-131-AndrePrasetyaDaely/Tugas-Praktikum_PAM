@@ -1,4 +1,4 @@
-# My Profile App - Tugas Praktikum PAM Week 4
+# Tugas Praktikum PAM Week 4
 
 Aplikasi profil diri yang dikembangkan dengan pola arsitektur **MVVM** dan fitur kustomisasi UI.
 
