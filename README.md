@@ -28,9 +28,11 @@ Mengembangkan Profile App dari minggu lalu dengan fitur:
 - `MainActivity.kt`: Entry point aplikasi dan root composable.
 
 ## 📸 Screenshots
-(profile) <img width="446" height="954" alt="profile" src="https://github.com/user-attachments/assets/ff98f0e2-c706-49f9- b59c-ac42ee9712a9" />
-(Dark Mode)  <img width="440" height="948" alt="darkmode" src="https://github.com/user-attachments/assets/ad010749-ca4a-420a-b726-1ec562c7ea99" />
-(Edit Profile)  <img width="433" height="941" alt="editprofile" src="https://github.com/user-attachments/assets/1ca553d7-e042-43cf-840b-4cf02714e5ca" />
+(profile) <img width="446" height="954" alt="profile" src="https://github.com/user-attachments/assets/de481c17-0630-4ede-a1e3-15d892f6d214" />
+
+(Edit profile)  <img width="440" height="948" alt="darkmode" src="https://github.com/user-attachments/assets/ad010749-ca4a-420a-b726-1ec562c7ea99" />
+
+(Dark mode)  <img width="433" height="941" alt="editprofile" src="https://github.com/user-attachments/assets/1ca553d7-e042-43cf-840b-4cf02714e5ca" />
 
 
 
