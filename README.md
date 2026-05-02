@@ -33,11 +33,8 @@ Aplikasi Android "News Reader" yang dibangun menggunakan Jetpack Compose untuk m
 *(Silakan lampirkan screenshot aplikasi Anda di bawah ini)*
 
 | Loading State | Success State | Detail Screen |
-|---|---|---|
-| ![Loading](<img width="426" height="941" alt="Screenshot 2026-05-03 030636" src="https://github.com/user-attachments/assets/e38c9bab-2a76-4207-b7b5-956fc4649950" />
-) | ![Success](<img width="426" height="946" alt="Screenshot 2026-05-03 022117" src="https://github.com/user-attachments/assets/f3016b67-2175-498d-8eb7-353545384d69" />
-) | ![Detail](<img width="428" height="945" alt="Screenshot 2026-05-03 022129" src="https://github.com/user-attachments/assets/391d315e-f156-4720-92f2-c89b8dc39c2c" />
-) |
+| :---: | :---: | :---: |
+| <img src="https://github.com/user-attachments/assets/e38c9bab-2a76-4207-b7b5-956fc4649950" width="100%" /> | <img src="https://github.com/user-attachments/assets/f3016b67-2175-498d-8eb7-353545384d69" width="100%" /> | <img src="https://github.com/user-attachments/assets/391d156-f156-4720-92f2-c89b8dc39c2c" width="100%" /> |
 
 ## 🚀 Cara Menjalankan
 1. Clone repository ini.
