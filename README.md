@@ -1,4 +1,4 @@
-# News Reader App - Tugas Praktikum Minggu 6
+# News Reader App - Praktikum Minggu 6
 
 Aplikasi Android "News Reader" yang dibangun menggunakan Jetpack Compose untuk menampilkan berita terkini. Proyek ini mengimplementasikan pengambilan data dari API, arsitektur Repository Pattern, dan manajemen UI State yang baik sesuai dengan kriteria penilaian.
 
@@ -30,7 +30,7 @@ Aplikasi Android "News Reader" yang dibangun menggunakan Jetpack Compose untuk m
 - **Konfigurasi**: Implementasi saat ini menggunakan Mock Data berita bola (Bayern Munich vs Heidenheim) untuk memastikan tampilan visual yang stabil dan relevan sesuai permintaan spesifikasi.
 
 ## 📸 Screenshots
-*(Silakan lampirkan screenshot aplikasi Anda di bawah ini)*
+
 
 | Loading State | Success State | Detail Screen |
 | :---: | :---: | :---: |
