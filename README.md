@@ -1,39 +1,52 @@
-# My Notes App - Tugas Praktikum PAM Week 5
+# My Notes App - Tugas Praktikum PAM Week 7 
 
-Aplikasi manajemen catatan sederhana yang dikembangkan dengan **Jetpack Compose Navigation** dan arsitektur **MVVM**.
+Aplikasi manajemen catatan yang telah ditingkatkan dengan fitur database lokal, manajemen preferensi, dan arsitektur yang lebih solid.
 
-## 📝 Deskripsi Tugas (Minggu 5)
-Mengembangkan fitur navigasi pada aplikasi:
-1. **Bottom Navigation**: 3 tab utama (Notes, Favorites, Profile).
-2. **Note List to Detail**: Navigasi dari daftar catatan ke detail catatan dengan mengirimkan `noteId`.
-3. **Floating Action Button**: Menambahkan catatan baru melalui navigasi ke `AddNoteScreen`.
-4. **Edit Note**: Fitur mengedit catatan dengan argumen `noteId`.
-5. **Back Navigation**: Implementasi tombol kembali yang proper di semua layar.
-6. **Bonus**: Implementasi **Navigation Drawer** untuk akses cepat ke menu utama.
+## 📝 Deskripsi Tugas (Minggu 7)
+Upgrade aplikasi Notes dengan fitur-fitur berikut:
+1. **SQLDelight Database**: Implementasi database lokal untuk penyimpanan data yang persisten.
+2. **CRUD Operations**: Mendukung fungsionalitas Create, Read, Update, dan Delete catatan.
+3. **Search Functionality**: Fitur pencarian catatan secara real-time.
+4. **Settings Screen**: Pengaturan aplikasi menggunakan **DataStore** (Theme & Sort Order).
+5. **Offline-first**: Data tersimpan sepenuhnya di perangkat lokal.
+6. **UI States**: Implementasi state yang jelas (Loading, Empty, Content).
 
 ## 🚀 Fitur & Implementasi
-- **Navigation Graph**: Menggunakan `NavHost` untuk mengelola rute antar layar.
-- **Passing Arguments**: Mengirimkan data antar layar secara aman menggunakan argumen rute.
-- **Scaffold Integration**: Integrasi Top Bar, Bottom Bar, dan FAB dalam satu struktur halaman.
-- **State Management**: Data tetap sinkron antara list, detail, dan edit menggunakan ViewModel bersama.
+- **Database Lokal**: Menggunakan SQLDelight untuk performa tinggi dan type-safety.
+- **Data Persistence**: Menggunakan Jetpack DataStore untuk menyimpan preferensi user seperti Dark Mode.
+- **Search & Filter**: Pencarian catatan berdasarkan judul atau isi konten.
+- **Custom Sorting**: Pengurutan catatan berdasarkan Terbaru, Terlama, atau Alfabetis.
 
-## 🛠️ Struktur Folder
-- `navigation/`: Berisi `Screen.kt` (rute) dan `MainNavigation.kt` (graf navigasi).
-- `screens/`: Berisi layar fungsional (`NotesScreen`, `NoteDetailScreen`, dll).
-- `viewmodel/`: Berisi `NotesViewModel` dan `ProfileViewModel`.
-- `model/`: Berisi data model `Note.kt`.
+## 💾 Database Schema
+```sql
+CREATE TABLE NoteEntity (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    content TEXT NOT NULL,
+    isFavorite INTEGER AS kotlin.Boolean DEFAULT 0 NOT NULL,
+    createdAt INTEGER NOT NULL
+);
+```
+
+## 🛠️ Tech Stack
+- **Jetpack Compose** (UI)
+- **SQLDelight** (Local Database)
+- **Jetpack DataStore** (Preferences)
+- **Kotlin Flow** (Reactive Data Stream)
+- **MVVM Architecture**
 
 ## 📸 Screenshots
-| Notes List | Favorites List | Note Detail |
+*(Letakkan screenshot Anda di sini sesuai kategori)*
+| Notes List & Search | Note Detail | Settings & Sort |
 |:---:|:---:|:---:|
-| <img src="Bukti/NoteList.png" width="250" alt="Notes List"> | <img src="Bukti/Favorite.png" width="250" alt="Favorites List"> | <img src="Bukti/NoteDetail.png" width="250" alt="Note Detail"> |
+| [Gambar 1] | [Gambar 2] | [Gambar 3] |
 
-| Add Note | Edit Note | Navigation Drawer |
+| Add/Edit Note | Dark Mode | Empty State |
 |:---:|:---:|:---:|
-| <img src="Bukti/addnote.png" width="250" alt="Add Note"> | <img src="Bukti/Editnote.png" width="250" alt="Edit Note"> | <img src="Bukti/NavigationDrawer.png" width="250" alt="Navigation Drawer"> |
+| [Gambar 4] | [Gambar 5] | [Gambar 6] |
 
 ## 👤 Identitas
 - **Nama**: Andre Prasetya Daely
 - **NIM**: 123140131
 - **Prodi**: Teknik Informatika ITERA
-- **Branch**: `week-5`
+- **Branch**: `week-7`

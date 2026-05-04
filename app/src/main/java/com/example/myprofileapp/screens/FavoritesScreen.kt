@@ -13,44 +13,59 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.myprofileapp.viewmodel.NotesUiState
 import com.example.myprofileapp.viewmodel.NotesViewModel
 
 @Composable
 fun FavoritesScreen(
     viewModel: NotesViewModel,
-    onNoteClick: (Int) -> Unit
+    onNoteClick: (Long) -> Unit
 ) {
-    val notes by viewModel.notes.collectAsState()
-    val favoriteNotes = notes.filter { it.isFavorite }
+    val uiState by viewModel.uiState.collectAsState()
 
-    if (favoriteNotes.isEmpty()) {
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Text("No favorite notes yet")
+    when (val state = uiState) {
+        is NotesUiState.Loading -> {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                CircularProgressIndicator()
+            }
         }
-    } else {
-        LazyColumn(modifier = Modifier.fillMaxSize()) {
-            items(favoriteNotes) { note ->
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp)
-                        .clickable { onNoteClick(note.id) }
-                ) {
-                    Row(
-                        modifier = Modifier.padding(16.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Column(modifier = Modifier.weight(1f)) {
-                            Text(text = note.title, style = MaterialTheme.typography.titleMedium)
-                            Text(text = note.content, style = MaterialTheme.typography.bodyMedium, maxLines = 1)
+        is NotesUiState.Success -> {
+            val favoriteNotes = state.notes.filter { it.isFavorite }
+            if (favoriteNotes.isEmpty()) {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text("Belum ada catatan favorit")
+                }
+            } else {
+                LazyColumn(modifier = Modifier.fillMaxSize()) {
+                    items(favoriteNotes, key = { it.id }) { note ->
+                        Card(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(8.dp)
+                                .clickable { onNoteClick(note.id) }
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(16.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Column(modifier = Modifier.weight(1f)) {
+                                    Text(text = note.title, style = MaterialTheme.typography.titleMedium)
+                                    Text(text = note.content, style = MaterialTheme.typography.bodyMedium, maxLines = 1)
+                                }
+                                Icon(
+                                    imageVector = Icons.Default.Favorite,
+                                    contentDescription = "Favorit",
+                                    tint = MaterialTheme.colorScheme.primary
+                                )
+                            }
                         }
-                        Icon(
-                            imageVector = Icons.Default.Favorite,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary
-                        )
                     }
                 }
+            }
+        }
+        else -> {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Text("Favorit tidak ditemukan")
             }
         }
     }

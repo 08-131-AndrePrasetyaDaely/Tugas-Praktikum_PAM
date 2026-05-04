@@ -1,44 +1,98 @@
 package com.example.myprofileapp.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.example.myprofileapp.model.Note
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import com.example.myprofileapp.data.repository.NoteRepository
+import com.example.myprofileapp.data.settings.SettingsManager
+import com.example.myprofileapp.db.NoteEntity
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
-class NotesViewModel : ViewModel() {
-    private val _notes = MutableStateFlow<List<Note>>(
-        listOf(
-            Note(1, "Belajar Jetpack Compose", "Mempelajari Navigation dan Bottom Bar."),
-            Note(2, "Tugas PAM", "Mengerjakan tugas minggu ke-5."),
-            Note(3, "Catatan Harian", "Hari ini cuaca sangat cerah.")
-        )
+sealed interface NotesUiState {
+    object Loading : NotesUiState
+    data class Success(val notes: List<NoteEntity>) : NotesUiState
+    data class Empty(val message: String) : NotesUiState
+}
+
+class NotesViewModel(
+    private val repository: NoteRepository,
+    private val settingsManager: SettingsManager
+) : ViewModel() {
+    private val _searchQuery = MutableStateFlow("")
+    val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val uiState: StateFlow<NotesUiState> = combine(
+        _searchQuery,
+        settingsManager.sortOrder
+    ) { query, sortOrder ->
+        query to sortOrder
+    }.flatMapLatest { (query, sortOrder) ->
+        val flow = if (query.isEmpty()) {
+            repository.getAllNotes()
+        } else {
+            repository.searchNotes(query)
+        }
+        
+        flow.map { notes ->
+            when (sortOrder) {
+                "Alphabetical" -> notes.sortedBy { it.title.lowercase() }
+                "Oldest" -> notes.sortedBy { it.createdAt }
+                else -> notes.sortedByDescending { it.createdAt }
+            }
+        }
+    }.map { notes ->
+        if (notes.isEmpty()) {
+            NotesUiState.Empty("Catatan tidak ditemukan")
+        } else {
+            NotesUiState.Success(notes)
+        }
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = NotesUiState.Loading
     )
-    val notes: StateFlow<List<Note>> = _notes.asStateFlow()
 
-    fun addNote(title: String, content: String) {
-        val newNote = Note(
-            id = if (_notes.value.isEmpty()) 1 else _notes.value.maxOf { it.id } + 1,
-            title = title,
-            content = content
-        )
-        _notes.update { it + newNote }
+    fun onSearchQueryChange(query: String) {
+        _searchQuery.value = query
     }
 
-    fun updateNote(id: Int, title: String, content: String) {
-        _notes.update { list ->
-            list.map { if (it.id == id) it.copy(title = title, content = content) else it }
+    fun addNote(title: String, content: String) {
+        viewModelScope.launch {
+            repository.insertNote(title, content, false)
         }
     }
 
-    fun deleteNote(id: Int) {
-        _notes.update { list -> list.filter { it.id != id } }
+    fun updateNote(id: Long, title: String, content: String, isFavorite: Boolean) {
+        viewModelScope.launch {
+            repository.updateNote(id, title, content, isFavorite)
+        }
     }
 
-    fun toggleFavorite(id: Int) {
-        _notes.update { list ->
-            list.map { if (it.id == id) it.copy(isFavorite = !it.isFavorite) else it }
+    fun deleteNote(id: Long) {
+        viewModelScope.launch {
+            repository.deleteNote(id)
+        }
+    }
+
+    fun toggleFavorite(note: NoteEntity) {
+        viewModelScope.launch {
+            repository.updateNote(note.id, note.title, note.content, !note.isFavorite)
+        }
+    }
+
+    class Factory(
+        private val repository: NoteRepository,
+        private val settingsManager: SettingsManager
+    ) : ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(NotesViewModel::class.java)) {
+                @Suppress("UNCHECKED_CAST")
+                return NotesViewModel(repository, settingsManager) as T
+            }
+            throw IllegalArgumentException("Unknown ViewModel class")
         }
     }
 }

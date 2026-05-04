@@ -17,13 +17,16 @@ import com.example.myprofileapp.ui.components.EditProfileForm
 import com.example.myprofileapp.ui.components.ProfileCard
 import com.example.myprofileapp.ui.components.ProfileHeader
 import com.example.myprofileapp.viewmodel.ProfileViewModel
+import com.example.myprofileapp.viewmodel.SettingsViewModel
 
 @Composable
 fun ProfileScreen(
     modifier: Modifier = Modifier,
-    viewModel: ProfileViewModel
+    viewModel: ProfileViewModel,
+    settingsViewModel: SettingsViewModel
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val isDarkMode by settingsViewModel.isDarkMode.collectAsState()
     var isEditMode by remember { mutableStateOf(false) }
     var isDetailsVisible by remember { mutableStateOf(false) }
 
@@ -40,11 +43,11 @@ fun ProfileScreen(
             horizontalArrangement = Arrangement.End,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("Dark Mode", style = MaterialTheme.typography.bodyMedium)
+            Text("Mode Gelap", style = MaterialTheme.typography.bodyMedium)
             Spacer(modifier = Modifier.width(8.dp))
             Switch(
-                checked = uiState.isDarkMode,
-                onCheckedChange = { viewModel.toggleDarkMode(it) }
+                checked = isDarkMode,
+                onCheckedChange = { settingsViewModel.toggleDarkMode(it) }
             )
         }
 
@@ -68,13 +71,13 @@ fun ProfileScreen(
 
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 Button(onClick = { isDetailsVisible = !isDetailsVisible }) {
-                    Text(if (isDetailsVisible) "Hide Details" else "Show Details")
+                    Text(if (isDetailsVisible) "Sembunyikan Detail" else "Tampilkan Detail")
                 }
                 
                 OutlinedButton(onClick = { isEditMode = true }) {
                     Icon(Icons.Default.Edit, contentDescription = null)
                     Spacer(Modifier.width(8.dp))
-                    Text("Edit Profile")
+                    Text("Edit Profil")
                 }
             }
 

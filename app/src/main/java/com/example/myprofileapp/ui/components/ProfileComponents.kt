@@ -33,7 +33,7 @@ fun ProfileHeader(name: String, bio: String) {
         ) {
             Image(
                 painter = painterResource(id = R.drawable.profile_image),
-                contentDescription = "Profile Picture",
+                contentDescription = "Foto Profil",
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
             )
@@ -73,12 +73,12 @@ fun EditProfileForm(
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Text("Edit Profile", style = MaterialTheme.typography.headlineSmall)
+            Text("Edit Profil", style = MaterialTheme.typography.headlineSmall)
             
             OutlinedTextField(
                 value = name,
                 onValueChange = onNameChange,
-                label = { Text("Name") },
+                label = { Text("Nama") },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true
             )
@@ -95,7 +95,7 @@ fun EditProfileForm(
                 onClick = onSave,
                 modifier = Modifier.align(Alignment.End)
             ) {
-                Text("Save Changes")
+                Text("Simpan Perubahan")
             }
         }
     }
@@ -114,15 +114,15 @@ fun ProfileCard(email: String, phone: String, location: String) {
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Text(
-                text = "Contact Information",
+                text = "Informasi Kontak",
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
             
             InfoItem(icon = Icons.Default.Email, label = "Email", value = email)
-            InfoItem(icon = Icons.Default.Phone, label = "Phone", value = phone)
-            InfoItem(icon = Icons.Default.LocationOn, label = "Location", value = location)
+            InfoItem(icon = Icons.Default.Phone, label = "Telepon", value = phone)
+            InfoItem(icon = Icons.Default.LocationOn, label = "Lokasi", value = location)
         }
     }
 }

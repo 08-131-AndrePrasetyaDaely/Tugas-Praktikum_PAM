@@ -6,24 +6,38 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import androidx.navigation.navArgument
+import com.example.myprofileapp.NotesApplication
 import com.example.myprofileapp.screens.*
+import com.example.myprofileapp.ui.ProfileScreen
 import com.example.myprofileapp.viewmodel.NotesViewModel
 import com.example.myprofileapp.viewmodel.ProfileViewModel
-import com.example.myprofileapp.ui.ProfileScreen
+import com.example.myprofileapp.viewmodel.SettingsViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainNavigation(
     navController: NavHostController = rememberNavController(),
-    notesViewModel: NotesViewModel,
     profileViewModel: ProfileViewModel
 ) {
+    val context = LocalContext.current
+    val app = context.applicationContext as NotesApplication
+    
+    val notesViewModel: NotesViewModel = viewModel(
+        factory = NotesViewModel.Factory(app.noteRepository, app.settingsManager)
+    )
+    
+    val settingsViewModel: SettingsViewModel = viewModel(
+        factory = SettingsViewModel.Factory(app.settingsManager)
+    )
+
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
@@ -34,10 +48,10 @@ fun MainNavigation(
         drawerState = drawerState,
         drawerContent = {
             ModalDrawerSheet {
-                Text("Notes App Drawer", modifier = Modifier.padding(16.dp), style = MaterialTheme.typography.titleLarge)
+                Text("Aplikasi Catatan", modifier = Modifier.padding(16.dp), style = MaterialTheme.typography.headlineMedium)
                 HorizontalDivider()
                 NavigationDrawerItem(
-                    label = { Text("Notes") },
+                    label = { Text("Catatan") },
                     selected = currentRoute == Screen.Notes.route,
                     onClick = {
                         navController.navigate(Screen.Notes.route)
@@ -45,10 +59,26 @@ fun MainNavigation(
                     }
                 )
                 NavigationDrawerItem(
-                    label = { Text("Profile") },
+                    label = { Text("Favorit") },
+                    selected = currentRoute == Screen.Favorites.route,
+                    onClick = {
+                        navController.navigate(Screen.Favorites.route)
+                        scope.launch { drawerState.close() }
+                    }
+                )
+                NavigationDrawerItem(
+                    label = { Text("Profil") },
                     selected = currentRoute == Screen.Profile.route,
                     onClick = {
                         navController.navigate(Screen.Profile.route)
+                        scope.launch { drawerState.close() }
+                    }
+                )
+                NavigationDrawerItem(
+                    label = { Text("Pengaturan") },
+                    selected = currentRoute == Screen.Settings.route,
+                    onClick = {
+                        navController.navigate(Screen.Settings.route)
                         scope.launch { drawerState.close() }
                     }
                 )
@@ -57,9 +87,23 @@ fun MainNavigation(
     ) {
         Scaffold(
             topBar = {
-                if (currentRoute in listOf(Screen.Notes.route, Screen.Favorites.route, Screen.Profile.route)) {
+                val showTopBar = currentRoute in listOf(
+                    Screen.Notes.route, 
+                    Screen.Favorites.route, 
+                    Screen.Profile.route,
+                    Screen.Settings.route
+                )
+                if (showTopBar) {
                     CenterAlignedTopAppBar(
-                        title = { Text("My Notes App") },
+                        title = { 
+                            Text(when(currentRoute) {
+                                Screen.Notes.route -> "Catatan Saya"
+                                Screen.Favorites.route -> "Favorit"
+                                Screen.Profile.route -> "Profil"
+                                Screen.Settings.route -> "Pengaturan"
+                                else -> "Aplikasi Catatan"
+                            })
+                        },
                         navigationIcon = {
                             IconButton(onClick = { scope.launch { drawerState.open() } }) {
                                 Icon(Icons.Default.Menu, contentDescription = "Menu")
@@ -69,13 +113,22 @@ fun MainNavigation(
                 }
             },
             bottomBar = {
-                if (currentRoute in listOf(Screen.Notes.route, Screen.Favorites.route, Screen.Profile.route)) {
+                val showBottomBar = currentRoute in listOf(
+                    Screen.Notes.route, 
+                    Screen.Favorites.route, 
+                    Screen.Profile.route
+                )
+                if (showBottomBar) {
                     NavigationBar {
-                        val items = listOf(Screen.Notes, Screen.Favorites, Screen.Profile)
-                        items.forEach { screen ->
+                        val items = listOf(
+                            Triple(Screen.Notes, "Catatan", Screen.Notes.icon),
+                            Triple(Screen.Favorites, "Favorit", Screen.Favorites.icon),
+                            Triple(Screen.Profile, "Profil", Screen.Profile.icon)
+                        )
+                        items.forEach { (screen, label, icon) ->
                             NavigationBarItem(
-                                icon = { screen.icon?.let { Icon(it, contentDescription = screen.title) } },
-                                label = { Text(screen.title) },
+                                icon = { icon?.let { Icon(it, contentDescription = label) } },
+                                label = { Text(label) },
                                 selected = currentRoute == screen.route,
                                 onClick = {
                                     navController.navigate(screen.route) {
@@ -109,13 +162,19 @@ fun MainNavigation(
                     )
                 }
                 composable(Screen.Profile.route) {
-                    ProfileScreen(viewModel = profileViewModel)
+                    ProfileScreen(
+                        viewModel = profileViewModel,
+                        settingsViewModel = settingsViewModel
+                    )
+                }
+                composable(Screen.Settings.route) {
+                    SettingsScreen(viewModel = settingsViewModel)
                 }
                 composable(
                     route = Screen.NoteDetail.route,
-                    arguments = listOf(navArgument("noteId") { type = NavType.IntType })
+                    arguments = listOf(navArgument("noteId") { type = NavType.LongType })
                 ) { backStackEntry ->
-                    val noteId = backStackEntry.arguments?.getInt("noteId") ?: return@composable
+                    val noteId = backStackEntry.arguments?.getLong("noteId") ?: return@composable
                     NoteDetailScreen(
                         noteId = noteId,
                         viewModel = notesViewModel,
@@ -126,12 +185,12 @@ fun MainNavigation(
                 composable(
                     route = Screen.AddEditNote.route,
                     arguments = listOf(navArgument("noteId") {
-                        type = NavType.IntType
-                        nullable = false
-                        defaultValue = -1
+                        type = NavType.LongType
+                        defaultValue = -1L
                     })
                 ) { backStackEntry ->
-                    val noteId = backStackEntry.arguments?.getInt("noteId").takeIf { it != -1 }
+                    val id = backStackEntry.arguments?.getLong("noteId")
+                    val noteId = if (id == -1L) null else id
                     AddEditNoteScreen(
                         noteId = noteId,
                         viewModel = notesViewModel,
