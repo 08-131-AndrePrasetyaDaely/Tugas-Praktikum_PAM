@@ -25,7 +25,6 @@ Upgrade aplikasi Notes dengan fitur-fitur berikut:
 - **MVVM Architecture**
 
 ## 📸 Screenshots
-*(Letakkan screenshot Anda di sini sesuai kategori)*
 | Daftar Catatan & Pencarian | Detail Catatan | Pengaturan & Urutan |
 |:---:|:---:|:---:|
 | ![Daftar Catatan](Bukti/daftarCatatan.png) | ![Detail Catatan](Bukti/Detailcatatan.png) | ![Pengaturan Urutan](Bukti/pengaturanUrutan.png) |
