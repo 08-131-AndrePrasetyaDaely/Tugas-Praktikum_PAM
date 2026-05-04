@@ -1,7 +1,5 @@
 # My Notes App - Tugas Praktikum PAM Week 7 
 
-Aplikasi manajemen catatan yang telah ditingkatkan dengan fitur database lokal, manajemen preferensi, dan arsitektur yang lebih solid.
-
 ## 📝 Deskripsi Tugas (Minggu 7)
 Upgrade aplikasi Notes dengan fitur-fitur berikut:
 1. **SQLDelight Database**: Implementasi database lokal untuk penyimpanan data yang persisten.
