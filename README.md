@@ -17,17 +17,6 @@ Upgrade aplikasi Notes dengan fitur-fitur berikut:
 - **Search & Filter**: Pencarian catatan berdasarkan judul atau isi konten.
 - **Custom Sorting**: Pengurutan catatan berdasarkan Terbaru, Terlama, atau Alfabetis.
 
-## 💾 Database Schema
-```sql
-CREATE TABLE NoteEntity (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    title TEXT NOT NULL,
-    content TEXT NOT NULL,
-    isFavorite INTEGER AS kotlin.Boolean DEFAULT 0 NOT NULL,
-    createdAt INTEGER NOT NULL
-);
-```
-
 ## 🛠️ Tech Stack
 - **Jetpack Compose** (UI)
 - **SQLDelight** (Local Database)
@@ -37,13 +26,13 @@ CREATE TABLE NoteEntity (
 
 ## 📸 Screenshots
 *(Letakkan screenshot Anda di sini sesuai kategori)*
-| Notes List & Search | Note Detail | Settings & Sort |
+| Daftar Catatan & Pencarian | Detail Catatan | Pengaturan & Urutan |
 |:---:|:---:|:---:|
-| [Gambar 1] | [Gambar 2] | [Gambar 3] |
+| ![Daftar Catatan](Bukti/daftarCatatan.png) | ![Detail Catatan](Bukti/Detailcatatan.png) | ![Pengaturan Urutan](Bukti/pengaturanUrutan.png) |
 
-| Add/Edit Note | Dark Mode | Empty State |
-|:---:|:---:|:---:|
-| [Gambar 4] | [Gambar 5] | [Gambar 6] |
+| Tambah/Edit Catatan | Kondisi Kosong |
+|:---:|:---:|
+| ![Tambah dan Edit](Bukti/tambahDanEdit.png) | ![Kondisi Kosong](Bukti/KondisiKosong.png) |
 
 ## 👤 Identitas
 - **Nama**: Andre Prasetya Daely
