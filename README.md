@@ -1,24 +1,49 @@
-# My Notes App - Tugas Praktikum PAM Week 7 
+# My Notes App - Tugas Praktikum PAM Week 8
 
-Aplikasi manajemen catatan yang telah ditingkatkan dengan fitur database lokal, manajemen preferensi, dan arsitektur yang lebih solid.
+Aplikasi manajemen catatan yang telah ditingkatkan dengan Dependency Injection (Koin), Platform Features (DeviceInfo, NetworkMonitor), dan arsitektur yang lebih modular.
 
-## 📝 Deskripsi Tugas (Minggu 7)
+## 📝 Deskripsi Tugas (Minggu 8)
 Upgrade aplikasi Notes dengan fitur-fitur berikut:
-1. **SQLDelight Database**: Implementasi database lokal untuk penyimpanan data yang persisten.
-2. **CRUD Operations**: Mendukung fungsionalitas Create, Read, Update, dan Delete catatan.
-3. **Search Functionality**: Fitur pencarian catatan secara real-time.
-4. **Settings Screen**: Pengaturan aplikasi menggunakan **DataStore** (Theme & Sort Order).
-5. **Offline-first**: Data tersimpan sepenuhnya di perangkat lokal.
-6. **UI States**: Implementasi state yang jelas (Loading, Empty, Content).
+1. **Koin Dependency Injection**: Implementasi DI untuk seluruh komponen aplikasi (ViewModel, Repository, Database, Platform).
+2. **Platform Features (Expect/Actual Pattern)**: 
+    - **DeviceInfo**: Menampilkan informasi hardware perangkat.
+    - **NetworkMonitor**: Memantau status koneksi internet secara real-time.
+    - **BatteryInfo (Bonus)**: Menampilkan level baterai dan status pengisian daya.
+3. **UI Integration**:
+    - Indikator status jaringan di layar utama.
+    - Informasi perangkat di layar pengaturan.
+4. **Architecture Refactoring**: Pemisahan logika platform dan aplikasi menggunakan abstraksi.
+
+## 🏗️ Architecture Diagram
+Aplikasi menggunakan **MVVM Architecture** dengan **Dependency Injection** menggunakan Koin:
+
+```mermaid
+graph TD
+    A[UI / Compose Screens] --> B[ViewModels]
+    B --> C[Repositories]
+    B --> D[Platform Interfaces / Abstraction]
+    C --> E[SQLDelight DB]
+    C --> F[Jetpack DataStore]
+    D --> G[Android Platform Implementation]
+    
+    subgraph Koin Container
+        B
+        C
+        D
+        E
+        F
+        G
+    end
+```
 
 ## 🚀 Fitur & Implementasi
-- **Database Lokal**: Menggunakan SQLDelight untuk performa tinggi dan type-safety.
-- **Data Persistence**: Menggunakan Jetpack DataStore untuk menyimpan preferensi user seperti Dark Mode.
-- **Search & Filter**: Pencarian catatan berdasarkan judul atau isi konten.
-- **Custom Sorting**: Pengurutan catatan berdasarkan Terbaru, Terlama, atau Alfabetis.
+- **Dependency Injection**: Menggunakan Koin untuk mempermudah pengelolaan dependensi dan pengujian.
+- **Real-time Network Monitoring**: Memberikan feedback instan kepada pengguna saat offline.
+- **Hardware Abstraction**: Menggunakan pattern abstraksi (expect/actual) untuk mengakses fitur spesifik platform (Android).
 
 ## 🛠️ Tech Stack
 - **Jetpack Compose** (UI)
+- **Koin** (Dependency Injection)
 - **SQLDelight** (Local Database)
 - **Jetpack DataStore** (Preferences)
 - **Kotlin Flow** (Reactive Data Stream)
@@ -26,9 +51,9 @@ Upgrade aplikasi Notes dengan fitur-fitur berikut:
 
 ## 📸 Screenshots
 *(Letakkan screenshot Anda di sini sesuai kategori)*
-| Daftar Catatan & Pencarian | Detail Catatan | Pengaturan & Urutan |
+| Daftar Catatan & Network Status | Info Perangkat & Baterai | Pengaturan Urutan |
 |:---:|:---:|:---:|
-| ![Daftar Catatan](Bukti/daftarCatatan.png) | ![Detail Catatan](Bukti/Detailcatatan.png) | ![Pengaturan Urutan](Bukti/pengaturanUrutan.png) |
+| ![Daftar Catatan](Bukti/networkStatus.png) | ![Info Perangkat](Bukti/deviceInfo.png) | ![Pengaturan](Bukti/pengaturanUrutan.png) |
 
 | Tambah/Edit Catatan | Kondisi Kosong |
 |:---:|:---:|
@@ -38,4 +63,4 @@ Upgrade aplikasi Notes dengan fitur-fitur berikut:
 - **Nama**: Andre Prasetya Daely
 - **NIM**: 123140131
 - **Prodi**: Teknik Informatika ITERA
-- **Branch**: `week-7`
+- **Branch**: `week-8`

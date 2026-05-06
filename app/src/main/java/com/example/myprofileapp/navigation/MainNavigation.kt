@@ -6,20 +6,18 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import androidx.navigation.navArgument
-import com.example.myprofileapp.NotesApplication
 import com.example.myprofileapp.screens.*
 import com.example.myprofileapp.ui.ProfileScreen
 import com.example.myprofileapp.viewmodel.NotesViewModel
 import com.example.myprofileapp.viewmodel.ProfileViewModel
 import com.example.myprofileapp.viewmodel.SettingsViewModel
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -27,16 +25,8 @@ fun MainNavigation(
     navController: NavHostController = rememberNavController(),
     profileViewModel: ProfileViewModel
 ) {
-    val context = LocalContext.current
-    val app = context.applicationContext as NotesApplication
-    
-    val notesViewModel: NotesViewModel = viewModel(
-        factory = NotesViewModel.Factory(app.noteRepository, app.settingsManager)
-    )
-    
-    val settingsViewModel: SettingsViewModel = viewModel(
-        factory = SettingsViewModel.Factory(app.settingsManager)
-    )
+    val notesViewModel: NotesViewModel = koinViewModel()
+    val settingsViewModel: SettingsViewModel = koinViewModel()
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route

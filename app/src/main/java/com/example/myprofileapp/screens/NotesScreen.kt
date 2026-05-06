@@ -28,6 +28,7 @@ fun NotesScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val searchQuery by viewModel.searchQuery.collectAsState()
+    val isOnline by viewModel.isOnline.collectAsState()
 
     Scaffold(
         floatingActionButton = {
@@ -37,6 +38,21 @@ fun NotesScreen(
         }
     ) { padding ->
         Column(modifier = Modifier.padding(padding)) {
+            // Network Status Indicator
+            if (!isOnline) {
+                Surface(
+                    color = MaterialTheme.colorScheme.errorContainer,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = "Mode Offline - Tidak ada koneksi internet",
+                        modifier = Modifier.padding(8.dp),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onErrorContainer
+                    )
+                }
+            }
+
             OutlinedTextField(
                 value = searchQuery,
                 onValueChange = { viewModel.onSearchQueryChange(it) },

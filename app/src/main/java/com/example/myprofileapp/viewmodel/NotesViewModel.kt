@@ -1,11 +1,11 @@
 package com.example.myprofileapp.viewmodel
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.myprofileapp.data.repository.NoteRepository
 import com.example.myprofileapp.data.settings.SettingsManager
 import com.example.myprofileapp.db.NoteEntity
+import com.example.myprofileapp.platform.NetworkMonitor
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -18,10 +18,14 @@ sealed interface NotesUiState {
 
 class NotesViewModel(
     private val repository: NoteRepository,
-    private val settingsManager: SettingsManager
+    private val settingsManager: SettingsManager,
+    networkMonitor: NetworkMonitor
 ) : ViewModel() {
     private val _searchQuery = MutableStateFlow("")
     val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
+
+    val isOnline: StateFlow<Boolean> = networkMonitor.isOnline
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), true)
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val uiState: StateFlow<NotesUiState> = combine(
@@ -80,19 +84,6 @@ class NotesViewModel(
     fun toggleFavorite(note: NoteEntity) {
         viewModelScope.launch {
             repository.updateNote(note.id, note.title, note.content, !note.isFavorite)
-        }
-    }
-
-    class Factory(
-        private val repository: NoteRepository,
-        private val settingsManager: SettingsManager
-    ) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(NotesViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return NotesViewModel(repository, settingsManager) as T
-            }
-            throw IllegalArgumentException("Unknown ViewModel class")
         }
     }
 }

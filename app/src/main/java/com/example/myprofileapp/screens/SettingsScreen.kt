@@ -43,7 +43,17 @@ fun SettingsScreen(viewModel: SettingsViewModel) {
         HorizontalDivider()
         
         Column {
-            Text("Urutan Catatan", style = MaterialTheme.typography.titleLarge)
+            Text("Informasi Perangkat", style = MaterialTheme.typography.titleLarge)
+            Spacer(modifier = Modifier.height(8.dp))
+            DeviceInfoItem(label = "Model", value = viewModel.deviceInfo.model)
+            DeviceInfoItem(label = "Manufaktur", value = viewModel.deviceInfo.manufacturer)
+            DeviceInfoItem(label = "Versi OS", value = "Android ${viewModel.deviceInfo.osVersion}")
+            DeviceInfoItem(label = "Baterai", value = "${viewModel.batteryInfo.level}% ${if (viewModel.batteryInfo.isCharging) "(Mengisi daya)" else ""}")
+        }
+        
+        HorizontalDivider()
+        
+        Column {
             Text("Urutan catatan dalam daftar", style = MaterialTheme.typography.bodyMedium)
             
             Spacer(modifier = Modifier.height(8.dp))
@@ -62,5 +72,18 @@ fun SettingsScreen(viewModel: SettingsViewModel) {
                 }
             }
         }
+    }
+}
+
+@Composable
+fun DeviceInfoItem(label: String, value: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 4.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(text = label, style = MaterialTheme.typography.bodyLarge)
+        Text(text = value, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.primary)
     }
 }
