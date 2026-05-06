@@ -14,27 +14,6 @@ Upgrade aplikasi Notes dengan fitur-fitur berikut:
     - Informasi perangkat di layar pengaturan.
 4. **Architecture Refactoring**: Pemisahan logika platform dan aplikasi menggunakan abstraksi.
 
-## 🏗️ Architecture Diagram
-Aplikasi menggunakan **MVVM Architecture** dengan **Dependency Injection** menggunakan Koin:
-
-```mermaid
-graph TD
-    A[UI / Compose Screens] --> B[ViewModels]
-    B --> C[Repositories]
-    B --> D[Platform Interfaces / Abstraction]
-    C --> E[SQLDelight DB]
-    C --> F[Jetpack DataStore]
-    D --> G[Android Platform Implementation]
-    
-    subgraph Koin Container
-        B
-        C
-        D
-        E
-        F
-        G
-    end
-```
 
 ## 🚀 Fitur & Implementasi
 - **Dependency Injection**: Menggunakan Koin untuk mempermudah pengelolaan dependensi dan pengujian.
@@ -50,17 +29,13 @@ graph TD
 - **MVVM Architecture**
 
 ## 📸 Screenshots
-*(Letakkan screenshot Anda di sini sesuai kategori)*
-| Daftar Catatan & Network Status | Info Perangkat & Baterai | Pengaturan Urutan |
-|:---:|:---:|:---:|
-| ![Daftar Catatan](Bukti/networkStatus.png) | ![Info Perangkat](Bukti/deviceInfo.png) | ![Pengaturan](Bukti/pengaturanUrutan.png) |
 
-| Tambah/Edit Catatan | Kondisi Kosong |
-|:---:|:---:|
-| ![Tambah dan Edit](Bukti/tambahDanEdit.png) | ![Kondisi Kosong](Bukti/KondisiKosong.png) |
+| Status Jaringan (Online) | Status Jaringan (Offline) | Info Perangkat & Baterai |
+|:---:|:---:|:---:|
+| ![Network Online](Bukti/airplaneOFF.png) | ![Network Offline](Bukti/airplaneON.png) | ![Info Perangkat](Bukti/deviceInfo.png) |
 
 ## 👤 Identitas
 - **Nama**: Andre Prasetya Daely
 - **NIM**: 123140131
 - **Prodi**: Teknik Informatika ITERA
-- **Branch**: `week-8`
+
