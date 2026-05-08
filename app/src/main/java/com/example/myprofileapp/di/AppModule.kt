@@ -17,7 +17,7 @@ import org.koin.dsl.module
 
 val appModule = module {
     // API KEY - Ganti dengan API Key Anda dari Google AI Studio
-    val GEMINI_API_KEY = "YOUR_GEMINI_API_KEY_HERE"
+    val GEMINI_API_KEY = "AIzaSyDkHA9BV2uFCBOgGh28r4Pj-exK9pubXBY"
 
     // Database
     single {

@@ -12,7 +12,7 @@ interface AiService {
 
 class GeminiAiService(apiKey: String) : AiService {
     private val model = GenerativeModel(
-        modelName = "gemini-1.5-flash",
+        modelName = "gemini-2.5-flash",
         apiKey = apiKey,
         systemInstruction = content { 
             text("Anda adalah asisten cerdas untuk aplikasi catatan 'My Notes App'. " +
