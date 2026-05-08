@@ -53,10 +53,3 @@ graph TD
 - **Prodi**: Teknik Informatika ITERA
 - **Branch**: `week-9`
 
----
-**Catatan Penting:**
-Untuk menjalankan fitur AI, Anda perlu menambahkan **Gemini API Key** Anda pada file `AppModule.kt`:
-```kotlin
-val GEMINI_API_KEY = "YOUR_GEMINI_API_KEY_HERE"
-```
-Dapatkan API Key gratis di [Google AI Studio](https://aistudio.google.com/).
