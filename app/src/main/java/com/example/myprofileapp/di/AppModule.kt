@@ -1,10 +1,13 @@
 package com.example.myprofileapp.di
 
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
+import com.example.myprofileapp.data.remote.AiService
+import com.example.myprofileapp.data.remote.GeminiAiService
 import com.example.myprofileapp.data.repository.NoteRepository
 import com.example.myprofileapp.data.settings.SettingsManager
 import com.example.myprofileapp.db.NotesDatabase
 import com.example.myprofileapp.platform.*
+import com.example.myprofileapp.viewmodel.AiViewModel
 import com.example.myprofileapp.viewmodel.NotesViewModel
 import com.example.myprofileapp.viewmodel.ProfileViewModel
 import com.example.myprofileapp.viewmodel.SettingsViewModel
@@ -13,11 +16,17 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
+    // API KEY - Ganti dengan API Key Anda dari Google AI Studio
+    val GEMINI_API_KEY = "YOUR_GEMINI_API_KEY_HERE"
+
     // Database
     single {
         val driver = AndroidSqliteDriver(NotesDatabase.Schema, androidContext(), "notes.db")
         NotesDatabase(driver)
     }
+    
+    // Remote Services
+    single<AiService> { GeminiAiService(GEMINI_API_KEY) }
     
     // DAO / Queries
     single { get<NotesDatabase>().noteEntityQueries }
@@ -37,4 +46,5 @@ val appModule = module {
     viewModel { NotesViewModel(get(), get(), get()) }
     viewModel { SettingsViewModel(get(), get(), get()) }
     viewModel { ProfileViewModel() }
+    viewModel { AiViewModel(get()) }
 }

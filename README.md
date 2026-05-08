@@ -1,41 +1,62 @@
-# My Notes App - Tugas Praktikum PAM Week 8
+# My Notes App - Tugas Praktikum PAM Week 9
 
-Aplikasi manajemen catatan yang telah ditingkatkan dengan Dependency Injection (Koin), Platform Features (DeviceInfo, NetworkMonitor), dan arsitektur yang lebih modular.
+Aplikasi manajemen catatan yang kini terintegrasi dengan kecerdasan buatan (AI) menggunakan **Gemini API**.
 
-## 📝 Deskripsi Tugas (Minggu 8)
-Upgrade aplikasi Notes dengan fitur-fitur berikut:
-1. **Koin Dependency Injection**: Implementasi DI untuk seluruh komponen aplikasi (ViewModel, Repository, Database, Platform).
-2. **Platform Features (Expect/Actual Pattern)**: 
-    - **DeviceInfo**: Menampilkan informasi hardware perangkat.
-    - **NetworkMonitor**: Memantau status koneksi internet secara real-time.
-    - **BatteryInfo (Bonus)**: Menampilkan level baterai dan status pengisian daya.
-3. **UI Integration**:
-    - Indikator status jaringan di layar utama.
-    - Informasi perangkat di layar pengaturan.
-4. **Architecture Refactoring**: Pemisahan logika platform dan aplikasi menggunakan abstraksi.
+## 📝 Deskripsi Tugas (Minggu 9)
+Integrasi fitur AI ke dalam aplikasi:
+1. **Gemini AI Integration**: Menggunakan Google AI SDK untuk menghadirkan fitur pintar.
+2. **Smart Note Summary**: AI dapat membuat ringkasan singkat dari isi catatan pengguna.
+3. **AI Assistant Chat**: Fitur chat interaktif (Multi-turn conversation) untuk bertanya seputar catatan atau hal umum lainnya.
+4. **Error Handling & Loading States**: Penanganan error API secara anggun dan tampilan loading yang responsif.
+5. **System Prompt Engineering**: Instruksi sistem yang dirancang agar AI bertindak sebagai asisten catatan yang profesional.
 
+## 🚀 Fitur AI Terbaru
+- **Ringkasan Catatan**: Klik ikon AI di detail catatan untuk mendapatkan poin-poin penting secara otomatis.
+- **Asisten AI (Chatbot)**:
+    - Mendukung percakapan berkelanjutan (Multi-turn).
+    - **Streaming Response**: Jawaban AI muncul secara real-time saat teks dihasilkan.
+- **Bahasa Indonesia**: AI dikonfigurasi khusus untuk merespon dalam Bahasa Indonesia yang baik.
 
-## 🚀 Fitur & Implementasi
-- **Dependency Injection**: Menggunakan Koin untuk mempermudah pengelolaan dependensi dan pengujian.
-- **Real-time Network Monitoring**: Memberikan feedback instan kepada pengguna saat offline.
-- **Hardware Abstraction**: Menggunakan pattern abstraksi (expect/actual) untuk mengakses fitur spesifik platform (Android).
+## 🏗️ Architecture Diagram (Updated)
+Aplikasi menggunakan **MVVM Architecture** dengan **Dependency Injection (Koin)**:
 
-## 🛠️ Tech Stack
-- **Jetpack Compose** (UI)
+```mermaid
+graph TD
+    A[UI / Compose Screens] --> B[ViewModels]
+    B --> C[Repositories]
+    B --> D[Platform & AI Services]
+    D --> G[Android SDK & Gemini API]
+    
+    subgraph Koin Container
+        B[NotesVM, AiVM, ProfileVM]
+        C[NoteRepository, SettingsManager]
+        D[DeviceInfo, NetworkMonitor, AiService]
+    end
+```
+
+## 🛠️ Tech Stack & Dependencies
+- **Google AI SDK** (`com.google.ai.client.generativeai`)
 - **Koin** (Dependency Injection)
-- **SQLDelight** (Local Database)
-- **Jetpack DataStore** (Preferences)
-- **Kotlin Flow** (Reactive Data Stream)
-- **MVVM Architecture**
+- **Jetpack Compose** (UI)
+- **SQLDelight** (Database)
 
 ## 📸 Screenshots
+*(Letakkan screenshot Anda di sini sesuai kategori)*
 
-| Status Jaringan (Online) | Status Jaringan (Offline) | Info Perangkat & Baterai |
+| Ringkasan Catatan (AI Summary) | Asisten AI (Chat) | Loading State |
 |:---:|:---:|:---:|
-| ![Network Online](Bukti/airplaneOFF.png) | ![Network Offline](Bukti/airplaneON.png) | ![Info Perangkat](Bukti/deviceInfo.png) |
+| ![AI Summary](Bukti/aiSummary.png) | ![AI Chat](Bukti/aiChat.png) | ![AI Loading](Bukti/aiLoading.png) |
 
 ## 👤 Identitas
 - **Nama**: Andre Prasetya Daely
 - **NIM**: 123140131
 - **Prodi**: Teknik Informatika ITERA
+- **Branch**: `week-9`
 
+---
+**Catatan Penting:**
+Untuk menjalankan fitur AI, Anda perlu menambahkan **Gemini API Key** Anda pada file `AppModule.kt`:
+```kotlin
+val GEMINI_API_KEY = "YOUR_GEMINI_API_KEY_HERE"
+```
+Dapatkan API Key gratis di [Google AI Studio](https://aistudio.google.com/).
