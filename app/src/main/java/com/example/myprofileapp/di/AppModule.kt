@@ -15,7 +15,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-val appModule = module {
+val dataModule = module {
     // API KEY - Ganti dengan API Key Anda dari Google AI Studio
     val GEMINI_API_KEY = "AIzaSyDkHA9BV2uFCBOgGh28r4Pj-exK9pubXBY"
 
@@ -41,10 +41,13 @@ val appModule = module {
     single<DeviceInfo> { AndroidDeviceInfo() }
     single<NetworkMonitor> { AndroidNetworkMonitor(androidContext()) }
     single<BatteryInfo> { AndroidBatteryInfo(androidContext()) }
-    
-    // ViewModels
+}
+
+val viewModelModule = module {
     viewModel { NotesViewModel(get(), get(), get()) }
     viewModel { SettingsViewModel(get(), get(), get()) }
     viewModel { ProfileViewModel() }
     viewModel { AiViewModel(get()) }
 }
+
+val appModule = listOf(dataModule, viewModelModule)

@@ -1,62 +1,57 @@
-# My Notes App - Tugas Praktikum PAM Week 9
+# My Notes App - Tugas Praktikum PAM Week 10
 
-Aplikasi manajemen catatan yang kini terintegrasi dengan kecerdasan buatan (AI) menggunakan **Gemini API**.
+Aplikasi manajemen catatan yang telah ditingkatkan dengan Dependency Injection (Koin) yang lebih modular dan implementasi Testing yang komprehensif.
 
-## 📝 Deskripsi Tugas (Minggu 9)
-Integrasi fitur AI ke dalam aplikasi:
-1. **Gemini AI Integration**: Menggunakan Google AI SDK untuk menghadirkan fitur pintar.
-2. **Smart Note Summary**: AI dapat membuat ringkasan singkat dari isi catatan pengguna.
-3. **AI Assistant Chat**: Fitur chat interaktif (Multi-turn conversation) untuk bertanya seputar catatan atau hal umum lainnya.
-4. **Error Handling & Loading States**: Penanganan error API secara anggun dan tampilan loading yang responsif.
-5. **System Prompt Engineering**: Instruksi sistem yang dirancang agar AI bertindak sebagai asisten catatan yang profesional.
+## 📝 Deskripsi Tugas (Minggu 10)
+Implementasi DI dan Testing untuk Notes App:
+1. **Setup Koin DI**: Pemisahan modul DI menjadi minimal 2 modul (`dataModule` & `viewModelModule`).
+2. **Unit Test NoteRepository**: Implementasi minimal 5 test cases untuk logika repository.
+3. **Unit Test NotesViewModel**: Menggunakan **MockK** untuk mocking dependensi dan minimal 4 test cases.
+4. **Flow Test**: Menggunakan **Turbine** untuk menguji stream data (Flow) minimal 2 test cases.
+5. **UI Test NotesScreen**: Menggunakan **Compose Test Rule** untuk menguji antarmuka minimal 3 test cases.
+6. **Code Coverage**: Memastikan cakupan testing minimal 60% untuk business logic.
 
-## 🚀 Fitur AI Terbaru
-- **Ringkasan Catatan**: Klik ikon AI di detail catatan untuk mendapatkan poin-poin penting secara otomatis.
-- **Asisten AI (Chatbot)**:
-    - Mendukung percakapan berkelanjutan (Multi-turn).
-    - **Streaming Response**: Jawaban AI muncul secara real-time saat teks dihasilkan.
-- **Bahasa Indonesia**: AI dikonfigurasi khusus untuk merespon dalam Bahasa Indonesia yang baik.
+## 🧪 Test Cases
+### 1. NoteRepositoryTest
+- `insertNote calls queries insertNote`: Memastikan fungsi insert memanggil query database yang benar.
+- `updateNote calls queries updateNote`: Memastikan fungsi update memanggil query database yang benar.
+- `deleteNote calls queries deleteNote`: Memastikan fungsi delete memanggil query database yang benar.
+- `getAllNotes calls queries getAllNotes`: Memastikan pengambilan semua data memanggil query yang benar.
+- `searchNotes calls queries searchNotes`: Memastikan fitur pencarian memanggil query dengan parameter yang benar.
 
-## 🏗️ Architecture Diagram (Updated)
-Aplikasi menggunakan **MVVM Architecture** dengan **Dependency Injection (Koin)**:
+### 2. NotesViewModelTest
+- `initial state is Loading`: Memastikan UI state awal adalah Loading.
+- `uiState updates to Success when notes are loaded`: Memastikan state berubah ke Success saat data tersedia.
+- `uiState updates to Empty when no notes found`: Memastikan state berubah ke Empty saat data kosong.
+- `onSearchQueryChange updates searchQuery flow`: Memastikan perubahan kata kunci pencarian terupdate di flow.
+- `toggleFavorite calls repository updateNote`: Memastikan aksi favorit memicu update di repository.
+- `isOnline flow works with Turbine`: Menguji stream status jaringan menggunakan Turbine.
 
-```mermaid
-graph TD
-    A[UI / Compose Screens] --> B[ViewModels]
-    B --> C[Repositories]
-    B --> D[Platform & AI Services]
-    D --> G[Android SDK & Gemini API]
-    
-    subgraph Koin Container
-        B[NotesVM, AiVM, ProfileVM]
-        C[NoteRepository, SettingsManager]
-        D[DeviceInfo, NetworkMonitor, AiService]
-    end
-```
+### 3. NotesScreenTest (UI Test)
+- `loadingIndicator_isDisplayed_whenStateIsLoading`: Memastikan indikator loading muncul saat state loading.
+- `emptyMessage_isDisplayed_whenStateIsEmpty`: Memastikan pesan kosong muncul saat tidak ada catatan.
+- `noteList_isDisplayed_whenStateIsSuccess`: Memastikan daftar catatan muncul saat data tersedia.
+- `offlineIndicator_isDisplayed_whenIsOnlineIsFalse`: Memastikan indikator offline muncul saat tidak ada koneksi.
 
-## 🛠️ Tech Stack & Dependencies
-- **Google AI SDK** (`com.google.ai.client.generativeai`)
-- **Koin** (Dependency Injection)
-- **Jetpack Compose** (UI)
-- **SQLDelight** (Database)
+## 📊 Code Coverage
+Cakupan testing difokuskan pada `NoteRepository` dan `NotesViewModel` yang merupakan inti dari business logic aplikasi.
+(Screenshot coverage report dapat dilihat di folder Bukti)
+
+## 🛠️ Tech Stack & Testing Tools
+- **MockK**: Library mocking untuk Kotlin.
+- **Turbine**: Library untuk pengujian Kotlin Flows.
+- **Koin Test**: Integrasi testing untuk Koin DI.
+- **Compose UI Test**: Pengujian UI untuk Jetpack Compose.
 
 ## 📸 Screenshots
 *(Letakkan screenshot Anda di sini sesuai kategori)*
 
-| Ringkasan Catatan (AI Summary) | Asisten AI (Chat) | Loading State |
+| Unit Test Results | UI Test Results | Code Coverage Report |
 |:---:|:---:|:---:|
-| ![AI Summary](Bukti/aiSummary.png) | ![AI Chat](Bukti/aiChat.png) | ![AI Loading](Bukti/aiLoading.png) |
+| ![Unit Test](Bukti/unitTestResult.png) | ![UI Test](Bukti/uiTestResult.png) | ![Coverage](Bukti/coverageReport.png) |
 
 ## 👤 Identitas
 - **Nama**: Andre Prasetya Daely
 - **NIM**: 123140131
 - **Prodi**: Teknik Informatika ITERA
-- **Branch**: `week-9`
-
----
-**Catatan Penting:**
-Untuk menjalankan fitur AI, Anda perlu menambahkan **Gemini API Key** Anda pada file `AppModule.kt`:
-```kotlin
-val GEMINI_API_KEY = "YOUR_GEMINI_API_KEY_HERE"
-```
-Dapatkan API Key gratis di [Google AI Studio](https://aistudio.google.com/).
+- **Branch**: `week-10`
