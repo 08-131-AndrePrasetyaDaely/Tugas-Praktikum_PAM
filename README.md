@@ -47,8 +47,8 @@ Cakupan testing difokuskan pada `NoteRepository` dan `NotesViewModel` yang merup
 *(Letakkan screenshot Anda di sini sesuai kategori)*
 
 | Unit Test Results | UI Test Results | Code Coverage Report |
-|:---:|:---:|:---:|
-| ![Unit Test](Bukti/unitTestResult.png) | ![UI Test](Bukti/uiTestResult.png) | ![Coverage](Bukti/coverageReport.png) |
+|:-----------------:|:---------------:|:--------------------:|
+| ![Unit Test](Bukti/unittest.png) | ![UI Test](Bukti/uitest.png) | ![Coverage](Bukti/coverage.png) |
 
 ## 👤 Identitas
 - **Nama**: Andre Prasetya Daely
