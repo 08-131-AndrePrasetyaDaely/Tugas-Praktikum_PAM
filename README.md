@@ -44,7 +44,6 @@ Cakupan testing difokuskan pada `NoteRepository` dan `NotesViewModel` yang merup
 - **Compose UI Test**: Pengujian UI untuk Jetpack Compose.
 
 ## 📸 Screenshots
-*(Letakkan screenshot Anda di sini sesuai kategori)*
 
 | Unit Test Results | UI Test Results | Code Coverage Report |
 |:-----------------:|:---------------:|:--------------------:|
